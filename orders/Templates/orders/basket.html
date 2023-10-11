@@ -1,0 +1,127 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block script %}
+<script src="{% static 'orders/basket.js' %}"></script>
+
+<!-- Plantilla del ítem 1 -->
+{% verbatim %}
+<script id="basketItem1" type="text/x-handlebars-template">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ item }}: {{ type }} - {{ category }} - {{ size }} -- ${{ price }}</h5>
+            <p class="card-text">Toppings: {{ toppings }}</p>
+        </div>
+    </div>
+</script>
+{% endverbatim %}
+
+{% endblock %}
+
+{% block title %}
+Mi Carrito
+{% endblock %}
+
+{% block main %}
+<h1>Mi Carrito</h1>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="confirmation" hidden></div>
+
+<form action="{% url 'orders:place' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group" id="basketList">
+        <!-- contenido de la plantilla handlebars aquí -->
+    </div>
+    <div class="form-group" id="total">
+        <h3 class="text-right">Subtotal: $<span id="subtotal"></span></h3>
+    </div>
+
+    <div class="form-group">
+        <!-- Botón para activar el modal -->
+        <button type="button" id="confirmOrder" class="btn btn-info" data-toggle="modal" data-target="#placeModal">
+            <i class="fas fa-check"></i> Confirmar Compra & Pagar
+        </button>
+        <button type="button" class="btn btn-warning" id="deleteOrder">
+            <i class="fas fa-trash-alt"></i> Eliminar todos los ítems
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="placeModal" tabindex="-1" role="dialog" aria-labelledby="placeModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="placeModalTitle">Ingresar Detalles de la Tarjeta:</h5>
+                </div>
+                <!-- formulario aquí -->
+                <form action="{% url 'orders:place' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="cardNumber">Número de Tarjeta:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-describedby="cardNumber" maxlength="16" name="cardNumber" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="expiry">Vencimiento:</label>
+                                </div>
+                                <select class="custom-select" id="month" name="month" required>
+                                    <option selected>Mes...</option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
+                                    <option value="5">05</option>
+                                    <option value="6">06</option>
+                                    <option value="7">07</option>
+                                    <option value="8">08</option>
+                                    <option value="9">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select class="custom-select" id="year" name="year" required>
+                                    <option selected>Año...</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="csv">CSV:</span>
+                                </div>
+                                <input type="text" class="form-control" aria-describedby="csv" maxlength="3" name="csv" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>Se le cobrará $<span id="charge"></span></h5>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <i class="fab fa-cc-visa fa-3x"></i>
+                        <i class="fab fa-cc-mastercard fa-3x"></i>
+                        <i class="fab fa-cc-amex fa-3x"></i>
+                        <button type="submit" class="btn btn-success" id="placeOrder">
+                            <i class="fas fa-check"></i> Completar Transacción
+                        </button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                    </div>
+                    <!-- campo oculto que contiene los datos de la canasta para enviar al servidor -->
+                    <input type="text" id="hiddenData" name="hiddenData" value="" hidden>
+                    <input type="text" id="hiddenSub" name="hiddenSub" value="" hidden>
+                    <!-- ----------Fin del campo oculto------------------ -->
+                </form>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

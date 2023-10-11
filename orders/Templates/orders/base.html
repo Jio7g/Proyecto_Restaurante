@@ -1,0 +1,173 @@
+{% load static %}
+{% load notifications_tags %}
+
+<!doctype html>
+<html lang="es">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+     <!-- estilos -->
+    <link rel="stylesheet" href="{% static 'orders/styles.css' %}">
+    
+
+    <!-- stripe styling -->
+    <link rel="stylesheet" href="global.css" />
+
+    <!-- icons -->
+    <script src="https://kit.fontawesome.com/baf32375a7.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+
+    <!-- Include Handlebars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <!-- base js file -->
+    <script src="{% static 'orders/base.js' %}"></script>
+
+    <!-- notification api -->
+    <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+    {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
+
+    {% block script %}{% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'orders:home' %}">Restaurante</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'orders:home' %}"><i class="fas fa-home"></i> Inicio</a>
+                <a class="nav-item nav-link" href="{% url 'orders:menu' %}"><i class="fas fa-pizza-slice"></i> Menú</a>
+            </div>
+            <!-- logged in -->
+            {% if request.user.is_authenticated %}
+
+            <div class="navbar-nav text-center">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#notifyModal">
+                    {% notifications_unread as unread_count %}
+                    {% if unread_count > 0 %}
+                    <i class="fas fa-bell active"></i> Notifications {% live_notify_badge badge_class="badge badge-light" %}
+                    {% else %}
+                    <i class="fas fa-bell"></i> Notifications {% live_notify_badge badge_class="badge badge-light" %}
+                    {% endif %}
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="notifyModalTitle"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="notifyModalTitle">Notificaciones</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            {% notifications_unread as unread_count %}
+                            {% if unread_count > 0 %}
+                            {% notifications_unread_list as notes %}
+                            {% for note in notes %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">#{{note.action_object.order_id}} -- {{note.verb}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{note.actor}} -- {{note.timestamp}}</h6>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            No tienes notificaciones sin leer.
+                            {% endif %}
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="{% url 'notifications:mark_all_as_read' %}?next={{ request.path|urlencode }}" type="button" class="btn btn-success">Marcar todas como leídas</a>
+                            <a href="{% url 'notifications:all' %}" type="button" class="btn btn-secondary">Ver todos los mensajes</a>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="{% url 'orders:account' %}"><i class="fas fa-user-edit"></i> Mi Cuenta:
+                    {{ user.username }}</a>
+                    <a class="nav-item nav-link" href="{% url 'orders:user_orders' %}"><i class="fas fa-user-edit"></i> Mis Ordenes:</a>
+                <a class="nav-item nav-link" href="{% url 'orders:logout' %}"><i class="fas fa-sign-out-alt"></i>  Cerrar sesión</a>
+                <a class="nav-item nav-link" href="{% url 'orders:basket' %}"><i class="fas fa-shopping-basket"></i>
+                    Carrito<span class="badge badge-dark" id="basketnum" hidden>0</span></a>
+            </div>
+
+            <!-- if not logged in -->
+            {% else %}
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="{% url 'orders:register' %}"><i class="fas fa-file-signature"></i>
+                    Registrarse</a>
+                <a class="nav-item nav-link" href="{% url 'orders:login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+            </div>
+            {% endif %}
+
+        </div>
+    </nav>
+
+    <div class="container mt-3 mb-3">
+
+        {% for message in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+
+        {% if message %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+
+        {% block main %}{% endblock %}
+    </div>
+
+
+    <!-- footer -->
+    <footer>
+        <div class="muted text-center">
+            <p>&copy; Carlos Ramos - all rights reserved 2023.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

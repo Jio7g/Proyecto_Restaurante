@@ -1,0 +1,43 @@
+html,
+body {
+background-image: url(/orders/static/orders/img/background.jpg);
+background-size: cover;
+background-position: center center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.fa-check-circle {
+    color: green;
+}
+
+.fa-times-circle {
+    color: red;
+}
+
+@keyframes bell {
+    0%   {transform: rotate(20deg);}
+    25%   {transform: rotate(-40deg);}
+    50%  {transform: rotate(40deg);}
+    75%   {transform: rotate(-40deg);}
+    100% {transform: rotate(20deg);}
+}
+
+.fa-bell.active {
+    color: gold;
+    animation: bell 1s infinite;
+}
+
+.badge.badge-dark {
+    color: rgba(255,255,255,.5);
+}
+
+.nav-link.sidebar {
+    color: white;
+}
+
+.nav-link.sidebar:hover {
+    color: black;
+}

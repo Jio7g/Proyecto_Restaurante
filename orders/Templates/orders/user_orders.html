@@ -1,0 +1,13 @@
+{% extends "orders/base.html" %}
+
+{% block content %}
+    <h2>Mis órdenes</h2>
+    <ul>
+    {% for order in orders %}
+        <li>
+            Orden ID: {{ order.order_id }} - Fecha: {{ order.time_placed }}
+            <!-- Puedes expandir más detalles aquí como los productos, precios, etc. -->
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block main %}
+
+{% if success %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ success }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+<form action="{% url 'orders:login' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="un">Username:</label>
+        <input type="text" class="form-control" id="un" name="un" autofocus required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-success">Log In</button>
+</form>
+
+{% endblock %}

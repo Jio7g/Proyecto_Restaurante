@@ -1,0 +1,32 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block main %}
+
+{% if request.user.is_authenticated %}
+<div class="jumbotron text-center">
+    <h1 class="display-4 mb-5"><i class="fas fa-pizza-slice"></i> ¡Bienvenido de nuevo {{user.first_name}} {{user.last_name}}! <i class="fas fa-pizza-slice"></i>
+    </h1>
+    <h3>¡Es GENIAL tenerte de vuelta! Ahora ve y sacia ese hambre pidiendo algo delicioso para comer...</h3>
+    <hr class="my-4">
+    <a class="btn btn-success btn-lg" href="{% url 'orders:menu' %}" role="button"><i class="fas fa-utensils"></i> Menú</a>
+</div>
+
+{% else %}
+<div class="jumbotron text-center">
+    <h1 class="display-4 mb-5"><i class="fas fa-pizza-slice"></i> ¡Bienvenido a Pizza Orders! <i class="fas fa-pizza-slice"></i>
+    </h1>
+    <h3>¡Si estás buscando algo SABROSO... has llegado al lugar correcto!</h3>
+    <hr class="my-4">
+    <h4>¿Eres nuevo aquí? Regístrate para obtener una cuenta, ver nuestro menú y realizar un pedido.</h4>
+    <a class="btn btn-success btn-lg" href="{% url 'orders:register' %}" role="button"><i class="fas fa-file-signature"></i> Registrarse</a>
+    <hr class="my-4">
+    <h4>¿Ya tienes una cuenta? Inicia sesión y despierta tus papilas gustativas.</h4>
+    <a class="btn btn-info btn-lg" href="{% url 'orders:login' %}" role="button"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+</div>
+{% endif %}
+
+{% endblock %}
