@@ -25,16 +25,16 @@ Menu
                 <button class="nav-link active" id="pizzas"><i class="fas fa-pizza-slice"></i> Pizzas</button>
             </li>
             <li class="nav-item ml-1">
-                <button class="nav-link" id="subs"><i class="fas fa-hotdog"></i> Subs</button>
+                <button class="nav-link" id="subs"><i class="fas fa-hotdog"></i> Hamburguesas</button>
             </li>
             <li class="nav-item ml-1">
                 <button class="nav-link" id="pasta"><i class="fas fa-utensils"></i> Pasta</button>
             </li>
             <li class="nav-item ml-1">
-                <button class="nav-link" id="salads"><i class="fas fa-leaf"></i> Salads</button>
+                <button class="nav-link" id="salads"><i class="fas fa-leaf"></i> Ensaladas</button>
             </li>
             <li class="nav-item ml-1">
-                <button class="nav-link" id="platters"><i class="fas fa-users"></i> Platters</button>
+                <button class="nav-link" id="platters"><i class="fas fa-users"></i> Platillos</button>
             </li>
         </ul>
     </div>
@@ -89,11 +89,11 @@ Menu
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-info active">
                                 <input type="radio" name="pizsmall" id="pizsmall" value="small" data-row="{{ row.id }}"
-                                    checked>Small
+                                    checked>Pequeña
                             </label>
                             <label class="btn btn-info">
                                 <input type="radio" name="pizlarge" id="pizlarge" value="large"
-                                    data-row="{{ row.id }}">Large
+                                    data-row="{{ row.id }}">Grande
                             </label>
                         </div>
                     </div>
@@ -176,11 +176,11 @@ Menu
                             {% if row.smPrice != 0.00 %}
                             <label class="btn btn-info active">
                                 <input type="radio" name="subsmall" id="subsmall" value="small" data-row="{{ row.id }}"
-                                    checked>Small
+                                    checked>Pequeño
                             </label>
                             <label class="btn btn-info">
                                 <input type="radio" name="sublarge" id="sublarge" value="large"
-                                    data-row="{{ row.id }}">Large
+                                    data-row="{{ row.id }}">Grande
                             </label>
                             {% elif row.smPrice == 0.00 and row.lgPrice == 0.00 %}
                             <label class="btn btn-info disabled">
@@ -321,11 +321,11 @@ Menu
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-info active">
                                 <input type="radio" name="platsmall" id="platsmall" value="small"
-                                    data-row="{{ row.id }}" checked>Small
+                                    data-row="{{ row.id }}" checked>Pequeña
                             </label>
                             <label class="btn btn-info">
                                 <input type="radio" name="platlarge" id="platlarge" value="large"
-                                    data-row="{{ row.id }}">Large
+                                    data-row="{{ row.id }}">Grande
                             </label>
                         </div>
                     </div>
