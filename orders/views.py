@@ -32,7 +32,7 @@ def register(request):
             login(request, user)
 
             auto = User.objects.get(username='AutomaticSystemMessage')
-            notify.send(auto, recipient=user, verb="Welcome! Thank you for signing up to Pizza. We hope you find something that makes your mouth water and we look forward to receiving an order from you very soon. Check out our 'menu' page to add things to your basket. You can view orders you have placed in your 'account' page.", level='info')
+            notify.send(auto, recipient=user, verb="¡Bienvenido! Gracias por registrarte en nuestro Restaurante. Esperamos que encuentres algo que te guste y esperamos recibir un pedido tuyo muy pronto. Visita nuestra página de 'menú' para agregar elementos a tu carrito. Puedes ver tus pedidos en tu página de 'cuenta'.", level='info')
 
             return HttpResponseRedirect(reverse("orders:menu"))
 
@@ -66,7 +66,7 @@ def log_in(request):
 def log_out(request):
 
     logout(request)
-    return render(request, 'orders/login.html', {'success': 'Successfully logged out!'})
+    return render(request, 'orders/login.html', {'success': '¡Cerró sesión exitosamente!'})
 
 # @login_required
 from django.shortcuts import render
@@ -110,14 +110,14 @@ def place(request):
 
             cardnum = request.POST['cardNumber']
 
-            # card validator ****************************
+            # validador de tarjetas ****************************
             if len(cardnum) < 13 or len(cardnum) > 16 or len(cardnum) == 14:
                 messages.add_message(
-                    request, messages.ERROR, 'Card Invalid 1 - Transaction unsuccessful.')
+                    request, messages.ERROR, 'Tarjeta no válida 1 - transacción fallida.')
                 return HttpResponseRedirect(reverse("orders:basket"))
             else:
                 length = len(cardnum)
-                # step 1 calculate 2x every other number then add
+                # paso 1 calcula 2x cada dos números y luego suma
                 i = length - 2
                 sum1 = 0
                 sum2 = 0
@@ -136,7 +136,7 @@ def place(request):
 
                     i -= 2
 
-                # step 2 calculate sum of digits remaining
+                # paso 2 calcula la suma de los dígitos restantes
                 i = length - 1
                 while i >= 0:
                     val = int(cardnum[i])
@@ -154,19 +154,19 @@ def place(request):
 
                 total = sum1 + sum2
 
-                # step 3 check ending in 0 and assign card type
+                # paso 3 comprobar que termina en 0 y asignar tipo de tarjeta
                 end = int(total) % 10
 
                 if not end == 0:
                     messages.add_message(
-                        request, messages.ERROR, 'Card Invalid 2 - Transaction unsuccessful.')
+                        request, messages.ERROR, 'Tarjeta no válida 2 - transacción fallida.')
                     return HttpResponseRedirect(reverse("orders:basket"))
                 elif length == 15:
                     if cardnum[0] == '3' and cardnum[1] == '4' or '7':
                         pass
                     else:
                         messages.add_message(
-                            request, messages.ERROR, 'Card Invalid 3 - Transaction unsuccessful.')
+                            request, messages.ERROR, 'Tarjeta no válida 3 - transacción fallida.')
                         return HttpResponseRedirect(reverse("orders:basket"))
 
                 elif length == 16:
@@ -176,7 +176,7 @@ def place(request):
                         pass
                     else:
                         messages.add_message(
-                            request, messages.ERROR, 'Card Invalid 4 - Transaction unsuccessful.')
+                            request, messages.ERROR, 'Tarjeta no válida 4 - transacción fallida.')
                         return HttpResponseRedirect(reverse("orders:basket"))
 
                 elif length == 13:
@@ -184,9 +184,9 @@ def place(request):
                         pass
                     else:
                         messages.add_message(
-                            request, messages.ERROR, 'Card Invalid 5 - Transaction unsuccessful.')
+                            request, messages.ERROR, 'Tarjeta no válida 5 - transacción fallida.')
                         return HttpResponseRedirect(reverse("orders:basket"))
-            # end of card validator ****************************
+            # fin del validador de tarjetas ****************************
 
             ord1 = Orders(user_id=user)
             ord1.save()
@@ -265,7 +265,7 @@ def place(request):
                     continue
 
             auto = User.objects.get(username='AutomaticSystemMessage')
-            notify.send(auto, recipient=user, verb="Your payment details have been confirmed and your order has been placed successfully! We'll notify you when it's out for delivery.", action_object=ord1, level='success')
+            notify.send(auto, recipient=user, verb="¡Sus datos de pago han sido confirmados y su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
 
             return HttpResponseRedirect(reverse("orders:account"))
 
