@@ -1,7 +1,7 @@
 {% extends "orders/base.html" %}
 
 {% block title %}
-Login
+Iniciar Sesión
 {% endblock %}
 
 {% block main %}
@@ -18,14 +18,14 @@ Login
 <form action="{% url 'orders:login' %}" method="POST">
     {% csrf_token %}
     <div class="form-group">
-        <label for="un">Username:</label>
+        <label for="un">Nombre de Usuario:</label>
         <input type="text" class="form-control" id="un" name="un" autofocus required>
     </div>
     <div class="form-group">
-        <label for="password">Password:</label>
+        <label for="password">Contraseña:</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
-    <button type="submit" class="btn btn-success">Log In</button>
+    <button type="submit" class="btn btn-success">Iniciar Sesión</button>
 </form>
 
 {% endblock %}
