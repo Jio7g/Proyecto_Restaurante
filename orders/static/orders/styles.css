@@ -1,13 +1,13 @@
-html,
-body {
-background-image: url(/orders/static/orders/img/background.jpg);
-background-size: cover;
-background-position: center center;
-}
-
 h1 {
     text-align: center;
 }
+
+/* Agrega este CSS en tu archivo "styles.css" o en un archivo CSS personalizado */
+
+.navbar {
+    background-color: rgb(210, 222, 53); /* Cambia "blue" al color que desees */
+}
+
 
 .fa-check-circle {
     color: green;

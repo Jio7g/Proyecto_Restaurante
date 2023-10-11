@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let div = document.querySelector('#basketList');
 
     if (bask == null) {
-        div.innerHTML = 'You do not have any items in your basket!';
+        div.innerHTML = '¡No tienes ningún artículo en tu cesta!';
         document.querySelector('#confirmOrder').disabled = true;
         document.querySelector('#deleteOrder').disabled = true;
         document.querySelector('#total').hidden = true;
@@ -23,24 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
             div.setAttribute('name', `item${i}`);
 
             if (bask[i]['toppings'] == '') {
-                // Create template
+                // Crear plantilla
                 const template1 = Handlebars.compile(document.querySelector('#basketItem1').innerHTML);
 
-                // Add to DOM.
+                // Agregar al DOM.
                 const content = template1({
                     'ident': bask[i]['ident'],
                     'item': bask[i]['item'],
                     'type': bask[i]['type'],
                     'category': bask[i]['category'],
                     'size': bask[i]['size'],
-                    'toppings': 'No extra toppings.',
+                    'toppings': 'Sin ingredientes adicionales.',
                     'price': bask[i]['price']
                 });
 
                 document.querySelector('#basketList').innerHTML += content;
 
             } else {
-                // Create template
+                // Crear plantilla
                 const template1 = Handlebars.compile(document.querySelector('#basketItem1').innerHTML);
 
                 let toppings = '';
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                // Add to DOM.
+                // Agregar al DOM.
                 const content = template1({
                     'ident': bask[i]['ident'],
                     'item': bask[i]['item'],
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('#deleteOrder').onclick = (button) => {
 
-        document.querySelector('#basketList').innerHTML = 'You do not have any items in your basket!';
+        document.querySelector('#basketList').innerHTML = '¡No tienes ningún artículo en tu cesta!';
         localStorage.removeItem('basket');
         localStorage.removeItem('subtotal');
         localStorage.removeItem('basknum');
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#placeOrder').disabled = true;
         document.querySelector('#deleteOrder').disabled = true;
         document.querySelector('#confirmation').hidden = false;
-        document.querySelector('#confirmation').innerHTML = 'Successfully removed all items from basket!';
+        document.querySelector('#confirmation').innerHTML = '¡Se eliminaron con éxito todos los artículos de la cesta!';
     };
 
 });

@@ -126,16 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function alphanum(txt) {
 
-    // Función para verificar si una cadena contiene solo caracteres alfanuméricos
-
     let allow = /^[0-9a-zA-Z]+$/;
     return allow.test(txt);
 };
 
 function caseCheck(txt) {
-
-    // Función para verificar si una cadena contiene al menos una letra mayúscula y una letra minúscula
-
+    
     let upcount = 0;
     let lowcount = 0;
 
@@ -163,10 +159,16 @@ function caseCheck(txt) {
 
 function numCheck(txt) {
 
-    // Función para verificar si una cadena contiene al menos un número
-
     for (i = 0; i < txt.length; i++) {
 
         const c = txt[i];
 
-        if (isNaN(c))
+        if (isNaN(c)) {
+            continue;
+        } else {
+            return true;
+        }
+    }
+
+    return false;
+};
