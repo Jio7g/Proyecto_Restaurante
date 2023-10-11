@@ -11,14 +11,14 @@ Utilicé la autenticación de Django para la página de registro, pero mejoré l
 El sistema de notificaciones se ha importado como una aplicación independiente a partir de un código fuente de terceros (django-notifications hq). Sin embargo, he modificado parte del código para que se ajuste a mi formato. Puede encontrar estos cambios enumerados a continuación:
 
 ********** added to 'notifications_tags.py' by Carlos Ramos **************************************************
-in:
-venv/
-    notifications/
-    ├── templatetags/
-    │   └── notifications_tags.py
-    ├── models.py
-    ├── views.py
-    ├── ...
+in:  
+venv/  
+    notifications/  
+    ├── templatetags/  
+    │   └── notifications_tags.py  
+    ├── models.py  
+    ├── views.py  
+    ├── ...  
 **************************************************
 
 def notifications_unread_list(context):
