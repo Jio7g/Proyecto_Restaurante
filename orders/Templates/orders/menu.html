@@ -55,24 +55,24 @@ Menu
                             <button type="submit" class="btn btn-success smplace" id="pizsmplace{{ row.id }}"
                                 name="pizsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" data-cat="{{ row.category }}">
-                                &plus; ${{ row.smPrice }}
+                                &plus; Q{{ row.smPrice }}
                             </button>
                             <button type="submit" class="btn btn-warning lgplace" id="pizlgplace{{ row.id }}"
                                 name="pizlgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" data-cat="{{ row.category }}" hidden>
-                                &plus; ${{ row.lgPrice }}
+                                &plus; Q{{ row.lgPrice }}
                             </button>
                             {% elif row.smPrice == 0.00 and row.lgPrice != 0.00 %}
                             <button type="submit" class="btn btn-warning lgplace" id="pizlgplace{{ row.id }}"
                                 name="pizlgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" data-cat="{{ row.category }}">
-                                &plus; ${{ row.lgPrice }}
+                                &plus; Q{{ row.lgPrice }}
                             </button>
                             {% elif row.smPrice != 0.00 and row.lgPrice == 0.00 %}
                             <button type="submit" class="btn btn-success smplace" id="pizsmplace{{ row.id }}"
                                 name="pizsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" data-cat="{{ row.category }}">
-                                &plus; ${{ row.smPrice }}
+                                &plus; Q{{ row.smPrice }}
                             </button>
                             {% else %}
                             <button type="submit" class="btn btn-danger smplace disabled" id="pizsmplace{{ row.id }}"
@@ -141,24 +141,24 @@ Menu
                             <button type="submit" class="btn btn-success smplace" id="subsmplace{{ row.id }}"
                                 name="subsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.smPrice }}
+                                &plus; Q{{ row.smPrice }}
                             </button>
                             <button type="submit" class="btn btn-warning lgplace" id="sublgplace{{ row.id }}"
                                 name="sublgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" hidden>
-                                &plus; ${{ row.lgPrice }}
+                                &plus; Q{{ row.lgPrice }}
                             </button>
                             {% elif row.smPrice == 0.00 and row.lgPrice != 0.00 %}
                             <button type="submit" class="btn btn-warning lgplace" id="sublgplace{{ row.id }}"
                                 name="sublgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.lgPrice }}
+                                &plus; Q{{ row.lgPrice }}
                             </button>
                             {% elif row.smPrice != 0.00 and row.lgPrice == 0.00 %}
                             <button type="submit" class="btn btn-success smplace" id="subsmplace{{ row.id }}"
                                 name="subsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.smPrice }}
+                                &plus; Q{{ row.smPrice }}
                             </button>
                             {% else %}
                             <button type="submit" class="btn btn-danger smplace disabled" id="subsmplace{{ row.id }}"
@@ -238,7 +238,7 @@ Menu
                             <button type="submit" class="btn btn-success place" id="pastaplace{{ row.id }}"
                                 name="pastaplace" value="{{ row.price }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.price }}
+                                &plus; Q{{ row.price }}
                             </button>
                         </div>
                     </div>
@@ -263,7 +263,7 @@ Menu
                             <button type="submit" class="btn btn-success place" id="saladplace{{ row.id }}"
                                 name="saladplace" value="{{ row.price }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.price }}
+                                &plus; Q{{ row.price }}
                             </button>
                         </div>
                     </div>
@@ -288,24 +288,24 @@ Menu
                             <button type="submit" class="btn btn-success smplace" id="platsmplace{{ row.id }}"
                                 name="platsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.smPrice }}
+                                &plus; Q{{ row.smPrice }}
                             </button>
                             <button type="submit" class="btn btn-warning lgplace" id="platlgplace{{ row.id }}"
                                 name="platlgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" hidden>
-                                &plus; ${{ row.lgPrice }}
+                                &plus; Q{{ row.lgPrice }}
                             </button>
                             {% elif row.smPrice == 0.00 and row.lgPrice != 0.00 %}
                             <button type="submit" class="btn btn-warning lgplace" id="platlgplace{{ row.id }}"
                                 name="platlgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.lgPrice }}
+                                &plus; Q{{ row.lgPrice }}
                             </button>
                             {% elif row.smPrice != 0.00 and row.lgPrice == 0.00 %}
                             <button type="submit" class="btn btn-success smplace" id="platsmplace{{ row.id }}"
                                 name="platsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}">
-                                &plus; ${{ row.smPrice }}
+                                &plus; Q{{ row.smPrice }}
                             </button>
                             {% else %}
                             <button type="submit" class="btn btn-danger smplace disabled" id="platsmplace{{ row.id }}"

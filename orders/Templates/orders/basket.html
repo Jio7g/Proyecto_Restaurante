@@ -23,6 +23,13 @@ Mi Carrito
 {% endblock %}
 
 {% block main %}
+<!-- si el ausuario aún no esta autenticado -->
+<div class="alert alert-info">
+    {% if not user.is_authenticated %}
+        <p>¡Bienvenido a nuestro Carrito de Compra! Para realizar tu compra, por favor <a href="{% url 'orders:login' %}">inicia sesión</a> o <a href="{% url 'orders:register' %}">regístrate</a>.</p>
+    {% endif %}
+</div>
+
 <h1>Mi Carrito</h1>
 
 <div class="alert alert-success alert-dismissible fade show" role="alert" id="confirmation" hidden></div>
@@ -37,13 +44,21 @@ Mi Carrito
     </div>
 
     <div class="form-group">
-        <!-- Botón para activar el modal -->
+        <!-- Botones para realizar la compra si es usuario autenticado -->
+        {% if request.user.is_authenticated %}
         <button type="button" id="confirmOrder" class="btn btn-info" data-toggle="modal" data-target="#placeModal">
             <i class="fas fa-check"></i> Confirmar Compra & Pagar
         </button>
+        
         <button type="button" class="btn btn-warning" id="deleteOrder">
             <i class="fas fa-trash-alt"></i> Eliminar todos los ítems
         </button>
+        <!-- si el ausuario aún no esta autenticado -->
+        {% else %}
+        <button type="button" class="btn btn-warning" id="deleteOrder">
+            <i class="fas fa-trash-alt"></i> Eliminar todos los ítems
+        </button>
+        {% endif %}
     </div>
 
     <!-- Modal -->

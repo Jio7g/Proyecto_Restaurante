@@ -2,13 +2,6 @@ h1 {
     text-align: center;
 }
 
-/* Agrega este CSS en tu archivo "styles.css" o en un archivo CSS personalizado */
-
-.navbar {
-    background-color: rgb(210, 222, 53); /* Cambia "blue" al color que desees */
-}
-
-
 .fa-check-circle {
     color: green;
 }
@@ -41,3 +34,72 @@ h1 {
 .nav-link.sidebar:hover {
     color: black;
 }
+
+.login-form {
+    /* Coloca el formulario en el centro de la página */
+    margin: 0 auto;
+    width: 500px;
+    padding: 20px;
+    /* Añade una sombra al formulario */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Añade un estilo a los campos de texto */
+  .login-form input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /* Añade un estilo al botón de inicio de sesión */
+  .login-form button {
+    background-color: #0b24ca;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /* Añade un estilo al mensaje de éxito */
+  .alert-success {
+    color: #008000;
+    background-color: #ffffff;
+    border-color: #008000;
+  }
+
+  .register-form {
+    /* Coloca el formulario en el centro de la página */
+    margin: 0 auto;
+    width: 500px;
+    padding: 20px;
+    /* Añade una sombra al formulario */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /*  campos de texto */
+  .register-form input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /*  botón de registro */
+  .register-form button {
+    background-color: #008000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  /* Añade un estilo a las alertas de error */
+  .alert-danger {
+    color: red;
+    background-color: #ffffff;
+    border-color: red;
+  }
+  
