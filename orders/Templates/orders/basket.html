@@ -9,8 +9,8 @@
 <script id="basketItem1" type="text/x-handlebars-template">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ item }}: {{ type }} - {{ category }} - {{ size }} -- ${{ price }}</h5>
-            <p class="card-text">Toppings: {{ toppings }}</p>
+            <h5 class="card-title">{{ item }}: {{ type }} - {{ category }} - {{ size }} -- Q{{ price }}</h5>
+            <p class="card-text">Ingredientes: {{ toppings }}</p>
         </div>
     </div>
 </script>
@@ -33,7 +33,7 @@ Mi Carrito
         <!-- contenido de la plantilla handlebars aquí -->
     </div>
     <div class="form-group" id="total">
-        <h3 class="text-right">Subtotal: $<span id="subtotal"></span></h3>
+        <h3 class="text-right">Subtotal: Q <span id="subtotal"></span></h3>
     </div>
 
     <div class="form-group">
@@ -102,7 +102,7 @@ Mi Carrito
                             </div>
                         </div>
                         <div class="form-group">
-                            <h5>Se le cobrará $<span id="charge"></span></h5>
+                            <h5>Se le cobrará Q<span id="charge"></span></h5>
                         </div>
                     </div>
                     <div class="modal-footer">
