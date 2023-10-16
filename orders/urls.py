@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from notifications import urls as notifications_urls
 
 from . import views
 
@@ -15,4 +16,5 @@ urlpatterns = [
     path("account", views.account, name="account"),
     path("account/filter/<filter_by>", views.filter, name="filter"),
     path('user_orders', views.user_orders, name='user_orders'),
+    path('notifications/', include(notifications_urls)),
 ]
