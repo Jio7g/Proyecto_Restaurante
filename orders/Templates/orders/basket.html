@@ -101,6 +101,32 @@ Mi Carrito
     <div class="form-group">
         <!-- Botones para realizar la compra si es usuario autenticado -->
         {% if request.user.is_authenticated %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@gmail.com" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Address1">Direccion</label>
+            <input type="text" class="form-control" id="address1" name="address1" placeholder="Barrio / Calle" required>
+        </div>
+        <div class="form-group">
+            <label for="Address2">Referencias </label>
+            <input type="text" class="form-control" id="address2" name="address2" placeholder="Casa color, frente a, etc... ">
+        </div>
+        <div class="form-group">
+            <label for="phone">Número de Télefono</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="xxxxxxxx" required pattern="[0-9]{8}">
+        </div>
+        <div class="alert alert-info">
+          <strong>Info!</strong> El pago en línea está actualmente deshabilitado, así que elija pagar al recibir.
+        </div>
+
         <button type="button" id="confirmOrder" class="btn btn-info" data-toggle="modal" data-target="#placeModal">
             <i class="fas fa-check"></i> Confirmar Compra & Pagar
         </button>
@@ -131,6 +157,7 @@ Mi Carrito
                         <div class="form-check">
                             <input class="form-check-input payment-option" type="checkbox" id="cashPayment" name="cashPayment">
                             <label class="form-check-label" for="cashPayment">Pago en Efectivo</label>
+                            
                         </div>
                         <div class="form-check">
                             <input class="form-check-input payment-option" type="checkbox" id="cardOnDelivery" name="cardOnDelivery">
@@ -187,7 +214,6 @@ Mi Carrito
                         </div>
                         
                         <br>
-
                         <div class="form-group">
                             <h5>Se le cobrará Q<span id="charge"></span></h5>
                         </div>
@@ -196,6 +222,7 @@ Mi Carrito
                         <i class="fab fa-cc-visa fa-3x"></i>
                         <i class="fab fa-cc-mastercard fa-3x"></i>
                         <i class="fab fa-cc-amex fa-3x"></i>
+                        <button type="submit" class="btn btn-primary" name="cashOnDelivery">Pagar al Recibir</button>
                         <button type="submit" class="btn btn-success" id="placeOrder">
                             <i class="fas fa-check"></i> Completar Transacción
                         </button>

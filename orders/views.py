@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 import json
 
 def home(request):
-    return render(request, 'orders/home.html')
+    return render(request, 'orders/index.html')
 
 def register(request):
     if request.method == 'POST':
@@ -88,10 +88,11 @@ def place(request):
                         po1.save()
                         if row['toppings'] != []:
                             for row in row['toppings']:
-                                top = Toppings.objects.get(
+                                   top = Toppings.objects.get(
                                 typ=row.replace('&amp;', '&'))
                             po1.toppings.add(top)
                             po1.save()
+
                             ord1.cost += po1.price
                             ord1.pizItems.add(po1)
                             ord1.save()
@@ -136,11 +137,14 @@ def place(request):
                         ord1.cost += plato1.price
                         ord1.platItems.add(plato1)
                         ord1.save()
+                        ord1.cost = total_cost
+                        ord1.save()
                     else:
                         continue
-                    auto = User.objects.get(username='AutomaticSystemMessage')
-                    notify.send(auto, recipient=user, verb="¡Sus datos de pago han sido confirmados y su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
-                    return HttpResponseRedirect(reverse("orders:account"))
+                auto = User.objects.get(username='AutomaticSystemMessage')
+                notify.send(auto, recipient=user, verb="¡Sus datos de pago han sido confirmados y su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
+                return HttpResponseRedirect(reverse("orders:account"))
+            
             elif payment_option == 'cardOnDelivery':  # Pago con Tarjeta contra Entrega
                 # Procesa la compra para pago con tarjeta contra entrega
                 ord1 = Orders(user_id=user)
@@ -633,3 +637,7 @@ def user_orders(request):
         return redirect('orders/menu.html')  # Redirige a los no administradores a alguna otra vista
 
     return render(request, 'orders/user_orders.html', {'orders': orders})
+
+def directions(request):
+        return render(request, "orders/directions.html")
+    

@@ -17,4 +17,5 @@ urlpatterns = [
     path("account/filter/<filter_by>", views.filter, name="filter"),
     path('user_orders', views.user_orders, name='user_orders'),
     path('notifications/', include(notifications_urls)),
+    path("directions", views.directions, name="directions"),
 ]

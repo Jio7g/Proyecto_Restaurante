@@ -1,4 +1,4 @@
-#!c:\users\estua\desktop\pruebas_proyecto_restaurante-main\venv\scripts\python.exe
+#!c:\users\cramo\onedrive\escritorio\proyectofinal\venv\scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'autopep8==1.5.3','console_scripts','autopep8'
 __requires__ = 'autopep8==1.5.3'
 import re

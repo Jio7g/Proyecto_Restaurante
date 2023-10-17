@@ -9,9 +9,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
      <!-- estilos -->
     <link rel="stylesheet" href="{% static 'orders/styles.css' %}">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'orders/styleHome.css' %}">
 
     <!--stripe styling -->
     <link rel="stylesheet" href="global.css" />
@@ -53,7 +55,7 @@
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'orders:home' %}">Restaurante</a>
+        <a class="navbar-brand" href="{% url 'orders:home' %}">Casa E'noya</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -62,6 +64,7 @@
             <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{% url 'orders:home' %}"><i class="fas fa-home"></i> Inicio</a>
                 <a class="nav-item nav-link" href="{% url 'orders:menu' %}"><i class="fas fa-pizza-slice"></i> Menú</a>
+                <a class="nav-item nav-link" href="{% url 'orders:directions' %}"><i class="fas fa-home"></i> Dirección</a>
             </div>
             <!-- logged in -->
             {% if request.user.is_authenticated %}
@@ -118,7 +121,7 @@
             <div class="navbar-nav ml-auto">
                 <a class="nav-item nav-link" href="{% url 'orders:account' %}"><i class="fas fa-user-edit"></i> Mi Cuenta:
                     {{ user.username }}</a>
-                    <a class="nav-item nav-link" href="{% url 'orders:user_orders' %}"><i class="fas fa-user-edit"></i> Mis Ordenes:</a>
+                   <!-- <a class="nav-item nav-link" href="{% url 'orders:user_orders' %}"><i class="fas fa-user-edit"></i> Mis Ordenes:</a>-->
                 <a class="nav-item nav-link" href="{% url 'orders:logout' %}"><i class="fas fa-sign-out-alt"></i>  Cerrar sesión</a>
                 <a class="nav-item nav-link" href="{% url 'orders:basket' %}"><i class="fas fa-shopping-basket"></i>
                     Carrito<span class="badge badge-dark" id="basketnum" hidden>0</span></a>
