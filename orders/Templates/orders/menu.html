@@ -55,7 +55,7 @@ Menu
                             <button type="submit" class="btn btn-success smplace" id="pizsmplace{{ row.id }}"
                                 name="pizsmplace" value="{{ row.smPrice }}" data-ident="{{ row.id }}"
                                 data-typ="{{ row.typ }}" data-cat="{{ row.category }}">
-                                &plus; Q{{ row.smPrice }}
+                                &plus; Q{{ row.smPrice|floatformat:2 }}
                             </button>
                             <button type="submit" class="btn btn-warning lgplace" id="pizlgplace{{ row.id }}"
                                 name="pizlgplace" value="{{ row.lgPrice }}" data-ident="{{ row.id }}"

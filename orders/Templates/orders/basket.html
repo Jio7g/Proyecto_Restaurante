@@ -16,6 +16,61 @@
 </script>
 {% endverbatim %}
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obtener referencia al checkbox "Pago en Línea"
+        var onlinePaymentCheckbox = document.getElementById("onlinePayment");
+    
+        // Obtener referencia al div de campos de tarjeta de crédito
+        var creditCardFields = document.getElementById("creditCardFields");
+    
+        // Manejar el cambio en la selección de "Pago en Línea"
+        onlinePaymentCheckbox.addEventListener("change", function () {
+            if (onlinePaymentCheckbox.checked) {
+                creditCardFields.style.display = "block"; // Mostrar los campos de tarjeta de crédito
+            } else {
+                creditCardFields.style.display = "none"; // Ocultar los campos de tarjeta de crédito
+            }
+        });
+    });
+    </script>
+    
+   <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Obtener referencias a los checkboxes de pago
+            var cashPaymentCheckbox = document.getElementById("cashPayment");
+            var cardOnDeliveryCheckbox = document.getElementById("cardOnDelivery");
+            var onlinePaymentCheckbox = document.getElementById("onlinePayment");
+        
+            // Manejar cambios en los checkboxes
+            cashPaymentCheckbox.addEventListener("change", function () {
+                console.log("Cash Payment checkbox changed");
+                if (cashPaymentCheckbox.checked) {
+                    // Si Pago en Efectivo se selecciona, deseleccionar los otros
+                    cardOnDeliveryCheckbox.checked = false;
+                    onlinePaymentCheckbox.checked = false;
+                }
+            });
+        
+            cardOnDeliveryCheckbox.addEventListener("change", function () {
+                if (cardOnDeliveryCheckbox.checked) {
+                    // Si Pago con Tarjeta contra Entrega se selecciona, deseleccionar los otros
+                    cashPaymentCheckbox.checked = false;
+                    onlinePaymentCheckbox.checked = false;
+                }
+            });
+        
+            onlinePaymentCheckbox.addEventListener("change", function () {
+                if (onlinePaymentCheckbox.checked) {
+                    // Si Pago en Línea se selecciona, deseleccionar los otros
+                    cashPaymentCheckbox.checked = false;
+                    cardOnDeliveryCheckbox.checked = false;
+                }
+            });
+        });
+        </script>
+        
+
 {% endblock %}
 
 {% block title %}
@@ -67,13 +122,27 @@ Mi Carrito
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="placeModalTitle">Ingresar Detalles de la Tarjeta:</h5>
+                    <h5 class="modal-title" id="placeModalTitle">Elige forma de Pago:</h5>
                 </div>
                 <!-- formulario aquí -->
                 <form action="{% url 'orders:place' %}" method="post">
                     {% csrf_token %}
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input payment-option" type="checkbox" id="cashPayment" name="cashPayment">
+                            <label class="form-check-label" for="cashPayment">Pago en Efectivo</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input payment-option" type="checkbox" id="cardOnDelivery" name="cardOnDelivery">
+                            <label class="form-check-label" for="cardOnDelivery">Pago con Tarjeta contra Entrega</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input payment-option" type="checkbox" id="onlinePayment" name="onlinePayment">
+                            <label class="form-check-label" for="onlinePayment">Pago en Línea</label>
+                        </div>
+                        <br>
+                        <div id="creditCardFields" style="display: none;">
+                            <!-- Campos relacionados con el pago con tarjeta de crédito -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="cardNumber">Número de Tarjeta:</span>
@@ -113,9 +182,12 @@ Mi Carrito
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="csv">CSV:</span>
                                 </div>
-                                <input type="text" class="form-control" aria-describedby="csv" maxlength="3" name="csv" required>
+                                <input type="text" class="form-control" aria-describedby="csv" maxlength="3" name="csv" required>  
                             </div>
                         </div>
+                        
+                        <br>
+
                         <div class="form-group">
                             <h5>Se le cobrará Q<span id="charge"></span></h5>
                         </div>

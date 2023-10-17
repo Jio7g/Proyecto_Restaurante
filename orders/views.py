@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -8,82 +8,54 @@ from .forms import RegForm
 from notifications.signals import notify
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
-
-
 import json
-
 
 def home(request):
     return render(request, 'orders/home.html')
 
-
 def register(request):
-
     if request.method == 'POST':
-
         form = RegForm(request.POST)
-
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-
             login(request, user)
-
             auto = User.objects.get(username='AutomaticSystemMessage')
             notify.send(auto, recipient=user, verb="¡Bienvenido! Gracias por registrarte en nuestro Restaurante. Esperamos que encuentres algo que te guste y esperamos recibir un pedido tuyo muy pronto. Visita nuestra página de 'menú' para agregar elementos a tu carrito. Puedes ver tus pedidos en tu página de 'cuenta'.", level='info')
-
             return HttpResponseRedirect(reverse("orders:menu"))
-
         else:
             messages.error(request, form.errors)
             return render(request, 'orders/register.html')
-
     else:
         return render(request, 'orders/register.html')
 
-
 def log_in(request):
-
     if request.method == 'POST':
-
         username = request.POST["un"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
-
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("orders:menu"))
         else:
             return render(request, "users/login.html", {"message": "Invalid username/password."})
-
     else:
         logout(request)
         return render(request, 'orders/login.html')
 
-
 def log_out(request):
-
     logout(request)
     return render(request, 'orders/login.html', {'success': '¡Cerró sesión exitosamente!'})
-
-# @login_required
-from django.shortcuts import render
-from .models import *
 
 def menu(request):
     if request.method == 'GET':
         user = request.user
-
-        # django won't allow range in template {% %} of html page hence defining it here
         it = Pizza.objects.all()
-
-        # iterate over pizas and add column for ranges
         for row in it:
             num = row.numTop
             row.num = range(1, (num+1))
-
         context = {
             "user": user,
             "pizza": it,
@@ -96,22 +68,148 @@ def menu(request):
         }
         return render(request, "orders/menu.html", context)
 
-
-
 def place(request):
-
     if request.user.is_authenticated:
-
         if request.method == 'POST':
-
             user = request.user
             data = request.POST['hiddenData']
             data = json.loads(data)
+            payment_option = request.POST.get('payment_option')
+            cardnum = "" 
+            
+            if payment_option == 'cashPayment':  # Pago en Efectivo
+                # Procesa la compra para pago en efectivo
+                ord1 = Orders(user_id=user)
+                ord1.save()
+                for row in data:
+                    if row['item'] == 'Pizza':
+                        p1 = Pizza.objects.get(id=row['ident'])
+                        po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
+                        po1.save()
+                        if row['toppings'] != []:
+                            for row in row['toppings']:
+                                top = Toppings.objects.get(
+                                typ=row.replace('&amp;', '&'))
+                            po1.toppings.add(top)
+                            po1.save()
+                            ord1.cost += po1.price
+                            ord1.pizItems.add(po1)
+                            ord1.save()
+                    elif row['item'] == 'sub':
+                        s1 = Sub.objects.get(id=row['ident'])
+                        so1 = SubOrder(order_id=ord1,
+                                   typ=s1, price=float(row['price']), size=row['size'])
+                        so1.save()
+                        if row['toppings'] != []:
+                            for row in row['toppings']:
+                                row = Extras.objects.get(
+                                typ=row.replace('&amp;', '&'))
+                            so1.extras.add(row)
+                            so1.save()
+                        ord1.cost += so1.price
+                        ord1.subItems.add(so1)
+                        ord1.save()
+                    elif row['item'] == 'Pasta':
+                        pasta1 = Pasta.objects.get(id=row['ident'])
+                        paO1 = PastaOrder(order_id=ord1,
+                                      typ=pasta1, price=float(row['price']))
+                        paO1.save()
+                        ord1.cost += paO1.price
+                        ord1.pastaItems.add(paO1)
+                        ord1.save()
 
-            cardnum = request.POST['cardNumber']
+                    elif row['item'] == 'Salad':
+                        salad1 = Salad.objects.get(id=row['ident'])
+                        salO1 = SaladOrder(order_id=ord1,
+                                       typ=salad1, price=float(row['price']))
+                        salO1.save()
+                        ord1.cost += salO1.price
+                        ord1.saladItems.add(salO1)
+                        ord1.save()
+                    elif row['item'] == 'Platter':
+                        platter1 = Platter.objects.get(id=row['ident'])
 
-            # validador de tarjetas ****************************
-            if len(cardnum) < 13 or len(cardnum) > 16 or len(cardnum) == 14:
+                        plato1 = PlatterOrder(order_id=ord1,
+                                          typ=platter1, price=float(row['price']), size=row['size'])
+                        plato1.save()
+
+                        ord1.cost += plato1.price
+                        ord1.platItems.add(plato1)
+                        ord1.save()
+                    else:
+                        continue
+                    auto = User.objects.get(username='AutomaticSystemMessage')
+                    notify.send(auto, recipient=user, verb="¡Sus datos de pago han sido confirmados y su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
+                    return HttpResponseRedirect(reverse("orders:account"))
+            elif payment_option == 'cardOnDelivery':  # Pago con Tarjeta contra Entrega
+                # Procesa la compra para pago con tarjeta contra entrega
+                ord1 = Orders(user_id=user)
+                ord1.save()
+                for row in data:
+                    if row['item'] == 'Pizza':
+                        p1 = Pizza.objects.get(id=row['ident'])
+                        po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
+                        po1.save()
+                        if row['toppings'] != []:
+                            for row in row['toppings']:
+                                top = Toppings.objects.get(
+                                typ=row.replace('&amp;', '&'))
+                            po1.toppings.add(top)
+                            po1.save()
+
+                            ord1.cost += po1.price
+                            ord1.pizItems.add(po1)
+                            ord1.save()
+                    elif row['item'] == 'sub':
+                        s1 = Sub.objects.get(id=row['ident'])
+                        so1 = SubOrder(order_id=ord1,
+                                   typ=s1, price=float(row['price']), size=row['size'])
+                        so1.save()
+                        if row['toppings'] != []:
+                            for row in row['toppings']:
+                                row = Extras.objects.get(
+                                typ=row.replace('&amp;', '&'))
+                            so1.extras.add(row)
+                            so1.save()
+                        ord1.cost += so1.price
+                        ord1.subItems.add(so1)
+                        ord1.save()
+                    elif row['item'] == 'Pasta':
+                        pasta1 = Pasta.objects.get(id=row['ident'])
+                        paO1 = PastaOrder(order_id=ord1,
+                                      typ=pasta1, price=float(row['price']))
+                        paO1.save()
+                        ord1.cost += paO1.price
+                        ord1.pastaItems.add(paO1)
+                        ord1.save()
+
+                    elif row['item'] == 'Salad':
+                        salad1 = Salad.objects.get(id=row['ident'])
+                        salO1 = SaladOrder(order_id=ord1,
+                                       typ=salad1, price=float(row['price']))
+                        salO1.save()
+                        ord1.cost += salO1.price
+                        ord1.saladItems.add(salO1)
+                        ord1.save()
+                    elif row['item'] == 'Platter':
+                        platter1 = Platter.objects.get(id=row['ident'])
+
+                        plato1 = PlatterOrder(order_id=ord1,
+                                          typ=platter1, price=float(row['price']), size=row['size'])
+                        plato1.save()
+
+                        ord1.cost += plato1.price
+                        ord1.platItems.add(plato1)
+                        ord1.save()
+                    else:
+                        continue
+                auto = User.objects.get(username='AutomaticSystemMessage')
+                notify.send(auto, recipient=user, verb="¡Su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
+                return HttpResponseRedirect(reverse("orders:account"))
+            
+            elif payment_option == 'onlinePayment':  # Pago en Línea
+                 # validador de tarjetas ****************************
+             if len(cardnum) < 13 or len(cardnum) > 16 or len(cardnum) == 14:
                 messages.add_message(
                     request, messages.ERROR, 'Tarjeta no válida 1 - transacción fallida.')
                 return HttpResponseRedirect(reverse("orders:basket"))
@@ -187,102 +285,81 @@ def place(request):
                             request, messages.ERROR, 'Tarjeta no válida 5 - transacción fallida.')
                         return HttpResponseRedirect(reverse("orders:basket"))
             # fin del validador de tarjetas ****************************
-
-            ord1 = Orders(user_id=user)
-            ord1.save()
-
-            for row in data:
-                if row['item'] == 'Pizza':
-                    p1 = Pizza.objects.get(id=row['ident'])
-
-                    po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
-
-                    po1.save()
-
-                    if row['toppings'] != []:
-                        for row in row['toppings']:
-                            top = Toppings.objects.get(
+                ord1 = Orders(user_id=user)
+                ord1.save()
+                for row in data:
+                    if row['item'] == 'Pizza':
+                        p1 = Pizza.objects.get(id=row['ident'])
+                        po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
+                        po1.save()
+                        if row['toppings'] != []:
+                            for row in row['toppings']:
+                                top = Toppings.objects.get(
                                 typ=row.replace('&amp;', '&'))
                             po1.toppings.add(top)
                             po1.save()
 
-                    ord1.cost += po1.price
-                    ord1.pizItems.add(po1)
-                    ord1.save()
-
-                elif row['item'] == 'Sub':
-                    s1 = Sub.objects.get(id=row['ident'])
-
-                    so1 = SubOrder(order_id=ord1,
+                            ord1.cost += po1.price
+                            ord1.pizItems.add(po1)
+                            ord1.save()
+                    elif row['item'] == 'sub':
+                        s1 = Sub.objects.get(id=row['ident'])
+                        so1 = SubOrder(order_id=ord1,
                                    typ=s1, price=float(row['price']), size=row['size'])
-                    so1.save()
-
-                    if row['toppings'] != []:
-                        for row in row['toppings']:
-                            row = Extras.objects.get(
+                        so1.save()
+                        if row['toppings'] != []:
+                            for row in row['toppings']:
+                                row = Extras.objects.get(
                                 typ=row.replace('&amp;', '&'))
                             so1.extras.add(row)
                             so1.save()
-
-                    ord1.cost += so1.price
-                    ord1.subItems.add(so1)
-                    ord1.save()
-
-                elif row['item'] == 'Pasta':
-                    pasta1 = Pasta.objects.get(id=row['ident'])
-
-                    paO1 = PastaOrder(order_id=ord1,
+                        ord1.cost += so1.price
+                        ord1.subItems.add(so1)
+                        ord1.save()
+                    elif row['item'] == 'Pasta':
+                        pasta1 = Pasta.objects.get(id=row['ident'])
+                        paO1 = PastaOrder(order_id=ord1,
                                       typ=pasta1, price=float(row['price']))
-                    paO1.save()
+                        paO1.save()
+                        ord1.cost += paO1.price
+                        ord1.pastaItems.add(paO1)
+                        ord1.save()
 
-                    ord1.cost += paO1.price
-                    ord1.pastaItems.add(paO1)
-                    ord1.save()
-
-                elif row['item'] == 'Salad':
-                    salad1 = Salad.objects.get(id=row['ident'])
-
-                    salO1 = SaladOrder(order_id=ord1,
+                    elif row['item'] == 'Salad':
+                        salad1 = Salad.objects.get(id=row['ident'])
+                        salO1 = SaladOrder(order_id=ord1,
                                        typ=salad1, price=float(row['price']))
-                    salO1.save()
+                        salO1.save()
+                        ord1.cost += salO1.price
+                        ord1.saladItems.add(salO1)
+                        ord1.save()
+                    elif row['item'] == 'Platter':
+                        platter1 = Platter.objects.get(id=row['ident'])
 
-                    ord1.cost += salO1.price
-                    ord1.saladItems.add(salO1)
-                    ord1.save()
-
-                elif row['item'] == 'Platter':
-                    platter1 = Platter.objects.get(id=row['ident'])
-
-                    plato1 = PlatterOrder(order_id=ord1,
+                        plato1 = PlatterOrder(order_id=ord1,
                                           typ=platter1, price=float(row['price']), size=row['size'])
-                    plato1.save()
+                        plato1.save()
 
-                    ord1.cost += plato1.price
-                    ord1.platItems.add(plato1)
-                    ord1.save()
-
-                else:
-                    continue
-
-            auto = User.objects.get(username='AutomaticSystemMessage')
-            notify.send(auto, recipient=user, verb="¡Sus datos de pago han sido confirmados y su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
-
-            return HttpResponseRedirect(reverse("orders:account"))
-
+                        ord1.cost += plato1.price
+                        ord1.platItems.add(plato1)
+                        ord1.save()
+                    else:
+                        continue
+                auto = User.objects.get(username='AutomaticSystemMessage')
+                notify.send(auto, recipient=user, verb="¡Sus datos de pago han sido confirmados y su pedido se ha realizado correctamente! Te avisaremos cuando esté disponible para entrega.", action_object=ord1, level='success')
+                return HttpResponseRedirect(reverse("orders:account"))
+        else:
+                # Opción de pago no válida
+                return HttpResponseRedirect(reverse("orders:basket"))    
     else:
-        return HttpResponseRedirect(reverse("orders:login"))
-
-
+            return HttpResponseRedirect(reverse("orders:login"))
+    
 def basket(request):
-
     user = request.user
-
     context = {
         "user": user
     }
-
     return render(request, 'orders/basket.html', context)
-
 
 def filter(request, filter_by):
 
