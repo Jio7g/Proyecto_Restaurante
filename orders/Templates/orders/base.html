@@ -63,8 +63,9 @@
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{% url 'orders:home' %}"><i class="fas fa-home"></i> Inicio</a>
-                <a class="nav-item nav-link" href="{% url 'orders:menu' %}"><i class="fas fa-pizza-slice"></i> Menú</a>
-                <a class="nav-item nav-link" href="{% url 'orders:directions' %}"><i class="fas fa-home"></i> Dirección</a>
+                <a class="nav-item nav-link" href="{% url 'orders:menu' %}"><i class="fas fa-utensils"></i> Menú</a>
+                <a class="nav-item nav-link" href="{% url 'orders:directions' %}"><i class="fas fa-map-signs"></i> Dirección</a>
+                <a class="nav-item nav-link" href="{% url 'orders:contact' %}"><i class="fas fa-phone"></i> Contacto</a>
             </div>
             <!-- logged in -->
             {% if request.user.is_authenticated %}

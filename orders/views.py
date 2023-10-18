@@ -640,4 +640,6 @@ def user_orders(request):
 
 def directions(request):
         return render(request, "orders/directions.html")
-    
+
+def contact(request):
+        return render(request, "orders/contact.html")

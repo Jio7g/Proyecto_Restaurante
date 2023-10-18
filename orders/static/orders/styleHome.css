@@ -39,6 +39,22 @@ p {
     font-size: 1.6rem;
 }
 
+.historia {
+    text-align: justify;
+    padding-left: 20px;
+}
+
+.descubre-menu {
+    text-align: justify;
+    padding-right: 25px;
+}
+
+.degusta-menu {
+    text-align: justify;
+    padding-left: 20px; /* Ajusta la cantidad de espacio hacia la derecha según tus necesidades */
+}
+
+
 .container {
     width: 100%;
     max-width: 122.5rem;
@@ -154,7 +170,7 @@ header {
 .hero {
     width: 100%;
     height: 70vh;
-    background: url("../orders/images/hero.jpg") center no-repeat;
+    background: url("../orders/images/fondo.jpg") center no-repeat;
     background-size: cover;
     display: flex;
     align-items: center;
@@ -167,11 +183,13 @@ header {
     color: #3bcc75;
     font-weight: 600;
     line-height: .4;
+    -webkit-text-stroke: 1px #000;
 }
 
 .fil {
     text-transform: uppercase;
     font-size: 3rem;
+    
 }
 
 .head {
@@ -181,7 +199,10 @@ header {
     text-transform: uppercase;
     font-weight: 900;
     letter-spacing: .5rem;
+    -webkit-text-stroke: 1px #000; /* Para navegadores basados en WebKit (Safari, Chrome) */
+ /* Para otros navegadores */
 }
+
 
 .circle {
     font-size: 1.5rem;
@@ -197,9 +218,10 @@ header {
     margin-bottom: 1.2rem;
     letter-spacing: 3px;
     margin-right: -3px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.btn {
+.btn-home {
     display: inline-block;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -262,7 +284,7 @@ header {
 /*menu*/
 
 .taste {
-    background: url("../orders/images/taste.jpg") center no-repeat;
+    background: url("../orders/images/platillos.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -473,3 +495,45 @@ footer {
    }
     
 }
+
+/* contact */
+.contact-title {
+    font-size: 24px;
+    text-decoration: underline;
+    color: #ff6600; /* Color de texto personalizado */
+}
+
+.contact-item {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.contact-link {
+    color: #0066ff; /* Color de enlace personalizado */
+    text-decoration: none;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+.contact-info {
+    text-align: center;
+    padding: 10px;
+    background-color: #f4f4f4; /* Color de fondo personalizado */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.footer-contact {
+    background: url("../orders/images/contact.jpg") center no-repeat;
+    background-size: cover;
+    text-align: center;
+    background-color: #333; /* Color de fondo personalizado para el pie de página */
+    padding: 200px;
+}
+
+.footer-image {
+    max-width: 100%; /* Ajusta el ancho de la imagen al tamaño del contenedor */
+}
+

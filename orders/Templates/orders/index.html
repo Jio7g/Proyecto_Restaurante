@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante</title>
+    <title>Casa E'noya</title>
 </head>
 
 
@@ -25,8 +25,8 @@
             </h2>
             <h1 class="head">Restaurante Casa E'noya</h1>
             <div class="he-des">
-                <h5>Lorem t dol</h5>
-                <a href="#" class="btn cta-btn">Explora</a>
+                <h5>COCINA HONESTA</h5>
+                <a href="#historia" class="btn-home cta-btn">Explora</a>
             </div>
         </div>
     </section>
@@ -35,7 +35,7 @@
         <div class="container">
             <div class="res-info">
                 <div>
-                    <img src="images/nosotros.jpg" alt="">
+                    <img src="{% static 'orders/images/nosotros-2.jpg' %}" alt="">
                 </div>
             
                 <div class="res-des pad-rig">
@@ -48,13 +48,16 @@
                             <i class="fas fa-circle"></i>
                         </div>
                     </div>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Doloremque veniam autem qui magnam ex tempora atque, voluptas
-                         voluptatem, recusandae porro corporis assumenda. 
-                        Aliquam accusamus blanditiis illo, vero quia tempora praesentium.
+                    <p class="historia">
+                        Nuestro nombre escrito en Ch'orti' significa la abuela, en honor a nuestras ascendientes quienes hicieron del arte culinario una tradición familiar, utilizando especias y condimentos de forma natural lo que ahora se conoce como COCINA HONESTA, caracterizándose por utilizar productos frescos de los huertos del área y de temporada (Invierno y verano) basados en la simplicidad de los alimentos, agregándole ingenio personal con un toque de buena mesa. La cocina de nuestra región, 
+                        es una fusión de lo étnico Ch'orti' y las tradiciones españolas que se desarrollaron en el siglo XVIII dando origen a un estilo de cocina que nos hace evocar esa sencillez llena de nostalgia y  fortalece nuestra identidad. 
                     </p>
-                    <a href="#" class="btn cta-btn">Nosotros</a>
+                    <p class="historia">
+                        En la época Colonial, el territorio del Oriente de Guatemala fue impulsado para la crianza de ganado bovino, para utilizar la piel de la res como embalaje de los tintes naturales (Añil y grana) que se producían en la región y se exportaban, siendo el principal sostén de la economía nacional. De esa cuenta en la época hubo abundancia de carne y sus derivados, esa es la razón por la que la gastronomía local se enriqueció con este alimento.
+                        Nuestro restaurante  evoca una construcción de la época, para transportarnos a nuestros orígenes. Las viviendas de nuestra región, se caracterizan por sus  techos de teja, cocinas exteriores y corredores amplios donde se desarrolla la actividad social de la familia, unido a los olores y sabores nos marca con el sello de nuestra identidad.
+
+                    </p>
+                    <a href="#" class="btn-home cta-btn">Nosotros</a>
                 </div>
 
             </div>
@@ -68,7 +71,7 @@
                 <h2 class="h2-sub">
                     <span class="fil">P</span>latillos
                 </h2>
-                <h1 class="head">Lorem</h1>
+                <h1 class="head">COCINA HONESTA</h1>
             </div>
         </div>
     </section>
@@ -87,19 +90,20 @@
                             <i class="fas fa-circle"></i>
                         </div>
                     </div>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Doloremque veniam autem qui magnam ex tempora atque, voluptas
-                        voluptatem, recusandae porro corporis assumenda. 
-                        Aliquam accusamus blanditiis illo, vero quia tempora praesentium.
+                    <p class="descubre-menu">
+                        Descubre una experiencia culinaria única que rinde homenaje a nuestras ascendientes y a la rica herencia de la cocina honesta. 
+                        Nuestro nombre, que significa "abuela" en Ch'orti', nos conecta con las raíces de una tradición familiar que se ha transmitido 
+                        de generación en generación. Nuestra cocina se basa en la simplicidad y la frescura de los ingredientes, provenientes de los huertos locales y de temporada,
+                        tanto en invierno como en verano. Cada plato refleja la fusión de la herencia étnica Ch'orti' y las tradiciones españolas que se desarrollaron en el siglo XVIII,
+                        creando un estilo de cocina que celebra la sencillez y la identidad de nuestra región.
                     </p>
-                    <a href="#" class="btn cta-btn">Pide el menu</a>
+                    <a href="{% url 'orders:menu' %}" class="btn-home cta-btn">Pide el menu</a>
                 </div>
                 <div class="image-group pad-rig">
-                    <img src="images/menu-1.jpg" alt="">
-                    <img src="images/menu-2.jpg" alt="">
-                    <img src="images/menu-3.jpg" alt="">
-                    <img src="images/menu-4.jpg" alt="">
+                    <img src="{% static 'orders/images/menu1.jpg' %}" alt="">
+                    <img src="{% static 'orders/images/menu2.jpg' %}" alt="">
+                    <img src="{% static 'orders/images/menu-3.jpg' %}" alt="">
+                    <img src="{% static 'orders/images/menu4.jpg' %}" alt="">
                 </div>
 
             </div>
@@ -112,7 +116,7 @@
                 <h2 class="h2-sub">
                     <span class="fil">P</span>latillos
                 </h2>
-                <h1 class="head">Lorem</h1>
+                <h1 class="head">COCINA HONESTA</h1>
             </div>
         </div>
     </section>
@@ -122,26 +126,26 @@
             <div class="res-info">
 
                 <div class="image-group">
-                    <img src="images/deli-1.jpg" alt="">
-                    <img src="images/deli-2.jpg" alt="">
+                    <img src="{% static 'orders/images/deli-menu-1.jpg' %}" alt="">
+                    <img src="{% static 'orders/images/deli-menu-2.jpg' %}" alt="">
                 </div>
                 <div class="res-des pad-rig">
                     <div class="global">
                         <h2 class="h2-sub">
                             <span class="fil">D</span>egusta
                         </h2>
-                        <h1 class="head hea-dark">Delisioso menu</h1>
+                        <h1 class="head hea-dark">Delicioso menu</h1>
                         <div class="circle">
                             <i class="fas fa-circle"></i>
                         </div>
                     </div>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Doloremque veniam autem qui magnam ex tempora atque, voluptas
-                         voluptatem, recusandae porro corporis assumenda. 
-                        Aliquam accusamus blanditiis illo, vero quia tempora praesentium.
+                    <p class="degusta-menu">
+                        Nuestro restaurante, con su arquitectura que evoca la época colonial, te transporta a nuestros orígenes. 
+                        Las viviendas de la región, con sus techos de teja, cocinas al aire libre y amplios corredores, 
+                        forman parte de la experiencia que te ofrecemos, en la que los sabores y aromas se entrelazan con la identidad y la historia de nuestra región.
+                        Ven y degusta lo mejor de nuestra tradición culinaria.
                     </p>
-                    <a href="#" class="btn cta-btn">Has una reservacion</a>
+                    <a href="{% url 'orders:contact' %}" class="btn-home cta-btn">Has una reservacion</a>
                 </div>
 
             </div>
@@ -172,7 +176,7 @@
                                 <a href="#"><i class="fab fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fab fa-facebook-square"></i></a>
+                                <a href="https://www.facebook.com/casaenoya"><i class="fab fa-facebook-square"></i></a>
                             </li>
                             <li>
                                 <a href="#"><i class="fab fa-pinterest"></i></a>

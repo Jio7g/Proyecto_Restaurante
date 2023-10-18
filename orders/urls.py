@@ -18,4 +18,5 @@ urlpatterns = [
     path('user_orders', views.user_orders, name='user_orders'),
     path('notifications/', include(notifications_urls)),
     path("directions", views.directions, name="directions"),
+    path("contact", views.contact, name="contact"),
 ]
