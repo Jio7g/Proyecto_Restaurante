@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 import json
 
+
 def home(request):
     return render(request, 'orders/index.html')
 
@@ -643,3 +644,6 @@ def directions(request):
 
 def contact(request):
         return render(request, "orders/contact.html")
+
+def page_not_found_404(request, exception):
+        return render(request, "orders/404.html")

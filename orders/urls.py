@@ -3,6 +3,9 @@ from notifications import urls as notifications_urls
 
 from . import views
 
+from django.conf.urls import handler404
+from orders.views import page_not_found_404
+
 app_name = 'orders'
 
 urlpatterns = [
@@ -20,3 +23,5 @@ urlpatterns = [
     path("directions", views.directions, name="directions"),
     path("contact", views.contact, name="contact"),
 ]
+
+handler404 = page_not_found_404

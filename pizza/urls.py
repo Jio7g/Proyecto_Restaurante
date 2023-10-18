@@ -18,9 +18,14 @@ from django.urls import include, path
 
 import notifications.urls
 
+from django.conf.urls import handler404
+from orders.views import page_not_found_404
+
 urlpatterns = [
     path("", include("orders.urls", namespace='orders')),
     path("admin/", admin.site.urls),
     path('inbox/notifications/',
          include(notifications.urls, namespace='notifications')),
 ]
+
+handler404 = page_not_found_404
