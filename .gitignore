@@ -143,3 +143,7 @@ GitHub.sublime-settings
 *.iml
 *.iws
 *.ipr
+
+#deploy server
+.deploy
+deploy/
