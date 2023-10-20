@@ -48,7 +48,7 @@ def log_in(request):
             login(request, user)
             return HttpResponseRedirect(reverse("orders:menu"))
         else:
-            return render(request, "users/login.html", {"message": "Invalid username/password."})
+            return render(request, "orders/login.html", {"message": "usuario/contraseña incorrecta."})
     else:
         logout(request)
         return render(request, 'orders/login.html')
