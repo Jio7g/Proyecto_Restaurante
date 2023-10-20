@@ -9,6 +9,8 @@ from notifications.signals import notify
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 import json
+# from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def home(request):
@@ -23,9 +25,14 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            auto = User.objects.get(username='AutomaticSystemMessage')
-            notify.send(auto, recipient=user, verb="¡Bienvenido! Gracias por registrarte en nuestro Restaurante. Esperamos que encuentres algo que te guste y esperamos recibir un pedido tuyo muy pronto. Visita nuestra página de 'menú' para agregar elementos a tu carrito. Puedes ver tus pedidos en tu página de 'cuenta'.", level='info')
-            return HttpResponseRedirect(reverse("orders:menu"))
+            try:    
+                    auto = User.objects.get(username='AutomaticSystemMessage')
+                    notify.send(auto, recipient=user, verb="¡Bienvenido! Gracias por registrarte en nuestro Restaurante. Esperamos que encuentres algo que te guste y esperamos recibir un pedido tuyo muy pronto. Visita nuestra página de 'menú' para agregar elementos a tu carrito. Puedes ver tus pedidos en tu página de 'cuenta'.", level='info')
+                    return HttpResponseRedirect(reverse("orders:menu"))
+            
+            except ObjectDoesNotExist:
+                return HttpResponseRedirect(reverse("orders:menu"))
+
         else:
             messages.error(request, form.errors)
             return render(request, 'orders/register.html')
