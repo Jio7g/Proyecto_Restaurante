@@ -47,3 +47,36 @@ else:
     notifications_unread_list = register.assignment_tag(takes_context=True)(notifications_unread_list)  # noqa  
 
 **********************************************************************
+
+
+## Home:
+
+![home1](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/97898bc1-130a-4cdc-b7fd-00fcdd3861be)
+
+![home2](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/c513723a-d15f-4830-ae05-e0cf1914b312)
+
+![home3](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/50659d93-81a2-4f6b-a317-0e9dbe6c05ce)
+
+![home4](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/4db03014-e850-4f8a-bb91-075e88e03dc0)
+
+![home5](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/4cb53a53-7a09-4195-9270-c12612b660a1)
+
+## Menu:
+
+![menu](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/d174afc3-1f55-4229-b760-cd38f7329110)
+
+## Direccion:
+
+![direccion](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/aa7657fe-35ab-442b-8b63-2dcbc45a623d)
+
+## Historial de Ordenes:
+
+![historia-ordenes](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/d8203a41-57bf-4e81-9acf-500c41991bba)
+
+## Login:
+
+![inicio-sesion](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/329f58db-f6fb-4cc6-bed7-c5d478fcc252)
+
+## Register:
+
+![registro](https://github.com/Jio7g/Pruebas_Proyecto_Restaurante/assets/142697112/2b02e577-1a72-4109-ac98-031585467250)
