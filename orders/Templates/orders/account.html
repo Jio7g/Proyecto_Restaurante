@@ -10,7 +10,7 @@ Mi Cuenta
 
     {% if not active and not delivery and not expired %}
     <div class="card border-info m-3">
-        <div class="card-header">Nombre de Usuario: {{ user.username }}</div>
+        <div class="card-header">Nombre de Usuario:: {{ user.username }}</div>
         <div class="card-body text-info">
             <p class="card-text"><strong>Nombre: </strong>{{ user.first_name }}</p>
             <p class="card-text"><strong>Apellido: </strong>{{ user.last_name }}</p>
@@ -20,15 +20,155 @@ Mi Cuenta
     {% else %}
 
     <div class="col-md-9">
-        <!-- Pedidos Anteriores -->
-        <h1>Mis Pedidos</h1>
+        <!-- Previous Orders -->
+        <h1>Mis Ordenes</h1>
         {% if active %}
-        <h5>Actualmente Activos:</h5>
+        <h5>Actualmente activa:</h5>
         {% endif %}
-        <!-- ... (Se continúa con la misma estructura del código para pedidos activos, entregas, etc.) ... -->
+        {% for row in active %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-left">
+                        <h5 class="card-title">Orden: #{{ row.order_id }} -- Q {{ row.cost }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ row.time_placed }}</h6>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-outline-info" data-toggle="collapse"
+                            data-target="#details{{ row.order_id }}" aria-controls="list-group"
+                            aria-expanded="false">Ver
+                            Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush collapse" id="details{{ row.order_id }}">
+                <li class="list-group-item pb-4">
+                    <h5>Items:</h5>
+                    <ul>
+                        {% for line in pizzas %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Pizza:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in subs %}{% if line.order_id.order_id == row.order_id %}<li><strong>Hamburguesa:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in pastas %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Pasta:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in salads %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Ensaladas:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in platters %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Platillos:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                    </ul>
 
-        <!-- ... (El resto del código se mantiene igual, ya que está relacionado con la lógica y no con la presentación directamente) ... -->
+                </li>
+            </ul>
+        </div>
+        {% endfor %}
 
+
+        {% if delivery %}
+        <h5>Lista para entregar:</h5>
+        {% endif %}
+        {% for row in delivery %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-left">
+                        <h5 class="card-title">Orden: #{{ row.order_id }} -- Q {{ row.cost }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ row.time_placed }}</h6>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-outline-info" data-toggle="collapse"
+                            data-target="#details{{ row.order_id }}" aria-controls="list-group"
+                            aria-expanded="false">Ver
+                            Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush collapse" id="details{{ row.order_id }}">
+                <li class="list-group-item pb-4">
+                    <h5>Items:</h5>
+                    <ul>
+                        {% for line in pizzas %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Pizza:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in subs %}{% if line.order_id.order_id == row.order_id %}<li><strong>Hamburguesa:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in pastas %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Pasta:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in salads %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Ensaladas:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in platters %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Platillos:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+        {% endfor %}
+
+        {% if expired %}
+        <h5>Expired:</h5>
+        {% endif %}
+        {% for row in expired %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-left">
+                        <h5 class="card-title">Orden: #{{ row.order_id }} -- Q {{ row.cost }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ row.time_placed }}</h6>
+                    </div>
+                    <div class="col text-right">
+                        <button type="button" class="btn btn-outline-info" data-toggle="collapse"
+                            data-target="#details{{ row.order_id }}" aria-controls="list-group"
+                            aria-expanded="false">Ver
+                            Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush collapse" id="details{{ row.order_id }}">
+                <li class="list-group-item pb-4">
+                    <h5>Items:</h5>
+                    <ul>
+                        {% for line in pizzas %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Pizza:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in subs %}{% if line.order_id.order_id == row.order_id %}<li><strong>Hamburguesas:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in pastas %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Pastas:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in salads %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Ensaladas:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                        {% for line in platters %}{% if line.order_id.order_id == row.order_id %}<li>
+                            <strong>Platillos:</strong>
+                            {{ line }}</li>
+                        {% endif %}{% endfor %}
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+        {% endfor %}
     </div>
 
     <div class="col-md-3">
@@ -41,16 +181,28 @@ Mi Cuenta
             </div>
         </div>
         <div class="card text-white bg-info mb-1">
-            <div class="card-header">Filtrar por</div>
+            <div class="card-header">Filter by</div>
             <div class="card-body">
-                <!-- Los enlaces siguientes son opciones de filtrado, traducimos sus etiquetas -->
-                <a href="{% url 'orders:filter' filter_by='newest' %}" class="nav-link sidebar"><i class="far fa-clock"></i><i class="fas fa-long-arrow-alt-up"></i> Más Reciente</a>
-                <a href="{% url 'orders:filter' filter_by='oldest' %}" class="nav-link sidebar"><i class="fas fa-history"></i> Más Antiguo</a>
-                <a href="{% url 'orders:filter' filter_by='cheapest' %}" class="nav-link sidebar"><i class="fas fa-dollar-sign"></i> Más Barato</a>
-                <a href="{% url 'orders:filter' filter_by='expensive' %}" class="nav-link sidebar"><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i> Mayor Costo</a>
-                <a href="{% if active %}{% url 'orders:filter' filter_by='active' %}{% endif %}" class="nav-link sidebar"><i class="fas fa-spinner"></i> Activos</a>
-                <a href="{% if delivery %}{% url 'orders:filter' filter_by='delivery' %}{% endif %}" class="nav-link sidebar"><i class="fas fa-road"></i> En Entrega</a>
-                <a href="{% if expired %}{% url 'orders:filter' filter_by='expired' %}{% endif %}" class="nav-link sidebar"><i class="fas fa-check"></i> Expirados</a>
+                <a href="{% url 'orders:filter' filter_by='newest' %}" class="nav-link sidebar"><i
+                        class="far fa-clock"></i><i class="fas fa-long-arrow-alt-up"></i>
+                    Nuevo</a>
+                <a href="{% url 'orders:filter' filter_by='oldest' %}" class="nav-link sidebar"><i
+                        class="fas fa-history"></i> Antiguos</a>
+                <a href="{% url 'orders:filter' filter_by='cheapest' %}" class="nav-link sidebar"><i
+                        class="fas fa-dollar-sign"></i>
+                        Lo mas barato</a>
+                <a href="{% url 'orders:filter' filter_by='expensive' %}" class="nav-link sidebar"><i
+                        class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i><i
+                        class="fas fa-dollar-sign"></i> Mayor costo</a>
+                <a href="{% if active %}{% url 'orders:filter' filter_by='active' %}{% endif %}"
+                    class="nav-link sidebar"><i class="fas fa-spinner"></i>
+                    Activo</a>
+                <a href="{% if delivery %}{% url 'orders:filter' filter_by='delivery' %}{% endif %}"
+                    class="nav-link sidebar"><i class="fas fa-road"></i>
+                    Entrega</a>
+                <a href="{% if expired %}{% url 'orders:filter' filter_by='expired' %}{% endif %}"
+                    class="nav-link sidebar"><i class="fas fa-check"></i>
+                    Caducado</a>
             </div>
         </div>
     </div>

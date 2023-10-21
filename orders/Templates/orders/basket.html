@@ -69,8 +69,46 @@
             });
         });
         </script>
-        
 
+<script>
+    $(document).ready(function () {
+        // Obtener referencia al checkbox de "Pago en Efectivo"
+        var cashPaymentCheckbox = $("#cashPayment");
+
+        // Manejar el cambio en la selección de "Pago en Efectivo"
+        cashPaymentCheckbox.change(function () {
+            if ($(this).prop("checked")) {
+                // Cuando Cash Payment está seleccionado
+                $("input[name='cardNumber']").removeAttr("required");
+                $("input[name='csv']").removeAttr("required");
+                $("#month, #year").removeAttr("required");
+            } else {
+                // Cuando se desmarca Cash Payment
+                $("input[name='cardNumber']").attr("required", true);
+                $("input[name='csv']").attr("required", true);
+                $("#month, #year").attr("required", true);
+            }
+        });
+
+        // Obtener referencia al checkbox de "Pago en Efectivo"
+        var cardOnDeliveryCheckbox = $("#cardOnDelivery");
+
+        // Manejar el cambio en la selección de "Pago en Efectivo"
+        cardOnDeliveryCheckbox.change(function () {
+            if ($(this).prop("checked")) {
+                // Cuando Cash Payment está seleccionado
+                $("input[name='cardNumber']").removeAttr("required");
+                $("input[name='csv']").removeAttr("required");
+                $("#month, #year").removeAttr("required");
+            } else {
+                // Cuando se desmarca Cash Payment
+                $("input[name='cardNumber']").attr("required", true);
+                $("input[name='csv']").attr("required", true);
+                $("#month, #year").attr("required", true);
+            }
+        });
+    });
+</script>    
 {% endblock %}
 
 {% block title %}
