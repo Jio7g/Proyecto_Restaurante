@@ -15,10 +15,10 @@ Menu
         <p>¡Bienvenido a nuestro menú! Para realizar un pedido, por favor <a href="{% url 'orders:login' %}">inicia sesión</a> o <a href="{% url 'orders:register' %}">regístrate</a>.</p>
     {% endif %}
 </div>
-<h1>Menu</h1>
+<h1 style="color: #faf6f5;">Menu</h1>
 
 
-<div class="card text-center">
+<div class="card text-center" style="background-color: #e8a090d3;">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item ml-1">
@@ -108,11 +108,11 @@ Menu
             </div>
             {% if row.numTop > 0 %}
             <ul class="list-group list-group-flush collapse" id="tops{{ row.id }}" data-cat="{{ row.category }}">
-                <li class="list-group-item pb-4">
+                <li class="list-group-item pb-4" >
 
                     {% for i in row.num %}
-                    <select class="custom-select col-3" name="customTop{{i}}" id="topSelect{{ row.id }}">
-                        <option value="" selected>Select topping {{i}}...</option>
+                    <select class="custom-select col-3" name="customTop{{i}}" id="topSelect{{ row.id }}" >
+                        <option value="" style="color: black;" selected >Select topping {{i}}...</option>
                         {% for row in toppings %}
                         <option value="{{ row }}">{{ row }}</option>
                         {% endfor %}
@@ -214,7 +214,7 @@ Menu
                         {% for row in extras %}
                         <input class="form-check-input" type="checkbox" id="subTop{{ row.id }}" value="{{ row }}"
                             data-price="{{ row.price }}">
-                        <label class="form-check-label mr-2" for="subTop{{ row.id }}">{{ row }}</label>
+                        <label class="form-check-label mr-2" style="color: black;" for="subTop{{ row.id }}">{{ row }}</label>
                         {% endfor %}
                     </div>
                     

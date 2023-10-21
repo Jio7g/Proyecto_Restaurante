@@ -133,7 +133,7 @@ Mi Carrito
         <!-- contenido de la plantilla handlebars aquí -->
     </div>
     <div class="form-group" id="total">
-        <h3 class="text-right">Subtotal: Q <span id="subtotal"></span></h3>
+        <h3 class="text-right" style="color: #ffffff;">Subtotal: Q <span id="subtotal"></span></h3>
     </div>
 
     <div class="form-group">
@@ -160,9 +160,6 @@ Mi Carrito
         <div class="form-group">
             <label for="phone">Número de Télefono</label>
             <input type="tel" class="form-control" id="phone" name="phone" placeholder="xxxxxxxx" required pattern="[0-9]{8}">
-        </div>
-        <div class="alert alert-info">
-          <strong>Info!</strong> El pago en línea está actualmente deshabilitado, así que elija pagar al recibir.
         </div>
 
         <button type="button" id="confirmOrder" class="btn btn-info" data-toggle="modal" data-target="#placeModal">
@@ -194,16 +191,16 @@ Mi Carrito
                     <div class="modal-body">
                         <div class="form-check">
                             <input class="form-check-input payment-option" type="checkbox" id="cashPayment" name="cashPayment">
-                            <label class="form-check-label" for="cashPayment">Pago en Efectivo</label>
+                            <label class="form-check-label" for="cashPayment" style="color: #040404;"> Pago en Efectivo</label>
                             
                         </div>
                         <div class="form-check">
                             <input class="form-check-input payment-option" type="checkbox" id="cardOnDelivery" name="cardOnDelivery">
-                            <label class="form-check-label" for="cardOnDelivery">Pago con Tarjeta contra Entrega</label>
+                            <label class="form-check-label" for="cardOnDelivery" style="color: #040404;"> Pago con Tarjeta contra Entrega</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input payment-option" type="checkbox" id="onlinePayment" name="onlinePayment">
-                            <label class="form-check-label" for="onlinePayment">Pago en Línea</label>
+                            <label class="form-check-label" for="onlinePayment" style="color: #040404;"> Pago en Línea</label>
                         </div>
                         <br>
                         <div id="creditCardFields" style="display: none;">

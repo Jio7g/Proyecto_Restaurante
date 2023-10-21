@@ -52,7 +52,7 @@ class PizOrder(models.Model):
         return ", ".join([t.typ for t in self.toppings.all()])
 
     def __str__(self):
-        return f"Type: {self.typ} || Size: {self.size} || Toppings: {self.custom_toppings()} || Price: ${self.price}"
+        return f"Type: {self.typ} || Size: {self.size} || Toppings: {self.custom_toppings()} || Price: Q {self.price}"
 
 
 # pizza toppings model
@@ -90,7 +90,7 @@ class SubOrder(models.Model):
         return ", ".join([t.typ for t in self.extras.all()])
 
     def __str__(self):
-        return f"Type: {self.typ} || Size: {self.size} || Toppings: {self.custom_extras()} || Price: ${self.price}"
+        return f"Type: {self.typ} || Size: {self.size} || Toppings: {self.custom_extras()} || Price: Q {self.price}"
 
 
 # extras for subs
@@ -123,7 +123,7 @@ class PastaOrder(models.Model):
     completed = models.CharField(max_length=1, default='N')
 
     def __str__(self):
-        return f"{self.typ} -- ${self.price}"
+        return f"{self.typ} -- Q {self.price}"
 
 # salad items
 class Salad(models.Model):
@@ -142,7 +142,7 @@ class SaladOrder(models.Model):
     completed = models.CharField(max_length=1, default='N')
 
     def __str__(self):
-        return f"Type: {self.typ} || Price: ${self.price}"
+        return f"Type: {self.typ} || Price: Q {self.price}"
 
 # platter items
 class Platter(models.Model):
@@ -163,4 +163,4 @@ class PlatterOrder(models.Model):
     completed = models.CharField(max_length=1, default='N')
 
     def __str__(self):
-        return f"Type: {self.typ} || Size: {self.size} || Price: ${self.price}"
+        return f"Type: {self.typ} || Size: {self.size} || Price: Q {self.price}"

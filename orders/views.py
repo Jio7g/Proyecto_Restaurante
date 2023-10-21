@@ -25,14 +25,9 @@ def register(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            try:    
-                    auto = User.objects.get(username='AutomaticSystemMessage')
-                    notify.send(auto, recipient=user, verb="¡Bienvenido! Gracias por registrarte en nuestro Restaurante. Esperamos que encuentres algo que te guste y esperamos recibir un pedido tuyo muy pronto. Visita nuestra página de 'menú' para agregar elementos a tu carrito. Puedes ver tus pedidos en tu página de 'cuenta'.", level='info')
-                    return HttpResponseRedirect(reverse("orders:menu"))
-            
-            except ObjectDoesNotExist:
-                return HttpResponseRedirect(reverse("orders:menu"))
-
+            auto = User.objects.get(username='AutomaticSystemMessage')
+            notify.send(auto, recipient=user, verb="¡Bienvenido! Gracias por registrarte en nuestro Restaurante. Esperamos que encuentres algo que te guste y esperamos recibir un pedido tuyo muy pronto. Visita nuestra página de 'menú' para agregar elementos a tu carrito. Puedes ver tus pedidos en tu página de 'cuenta'.", level='info')
+            return HttpResponseRedirect(reverse("orders:menu"))
         else:
             messages.error(request, form.errors)
             return render(request, 'orders/register.html')
@@ -48,7 +43,7 @@ def log_in(request):
             login(request, user)
             return HttpResponseRedirect(reverse("orders:menu"))
         else:
-            return render(request, "orders/login.html", {"message": "usuario/contraseña incorrecta."})
+            return render(request, "users/login.html", {"message": "Invalid username/password."})
     else:
         logout(request)
         return render(request, 'orders/login.html')
@@ -95,26 +90,22 @@ def place(request):
                         po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
                         po1.save()
                         if row['toppings'] != []:
-                            for row in row['toppings']:
-                                   top = Toppings.objects.get(
-                                typ=row.replace('&amp;', '&'))
+                            for topping in row['toppings']:
+                                   top = Toppings.objects.get(typ=topping.replace('&amp;', '&'))
                             po1.toppings.add(top)
-                            po1.save()
 
-                            ord1.cost += po1.price
-                            ord1.pizItems.add(po1)
-                            ord1.save()
-                    elif row['item'] == 'sub':
+                        ord1.cost += po1.price
+                        ord1.pizItems.add(po1)
+                        ord1.save()
+                    elif row['item'] == 'Sub':
                         s1 = Sub.objects.get(id=row['ident'])
-                        so1 = SubOrder(order_id=ord1,
-                                   typ=s1, price=float(row['price']), size=row['size'])
+                        so1 = SubOrder(order_id=ord1,typ=s1, price=float(row['price']), size=row['size'])
                         so1.save()
                         if row['toppings'] != []:
-                            for row in row['toppings']:
-                                row = Extras.objects.get(
-                                typ=row.replace('&amp;', '&'))
-                            so1.extras.add(row)
-                            so1.save()
+                            for extra in row['toppings']:
+                                top = Extras.objects.get(typ=extra.replace('&amp;', '&'))
+                                so1.extras.add(top)
+                        
                         ord1.cost += so1.price
                         ord1.subItems.add(so1)
                         ord1.save()
@@ -139,7 +130,7 @@ def place(request):
                         platter1 = Platter.objects.get(id=row['ident'])
 
                         plato1 = PlatterOrder(order_id=ord1,
-                                          typ=platter1, price=float(row['price']), size=row['size'])
+                        yp=platter1, price=float(row['price']), size=row['size'])
                         plato1.save()
 
                         ord1.cost += plato1.price
@@ -163,26 +154,22 @@ def place(request):
                         po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
                         po1.save()
                         if row['toppings'] != []:
-                            for row in row['toppings']:
-                                top = Toppings.objects.get(
-                                typ=row.replace('&amp;', '&'))
+                            for topping in row['toppings']:
+                                   top = Toppings.objects.get(typ=topping.replace('&amp;', '&'))
                             po1.toppings.add(top)
-                            po1.save()
 
-                            ord1.cost += po1.price
-                            ord1.pizItems.add(po1)
-                            ord1.save()
-                    elif row['item'] == 'sub':
+                        ord1.cost += po1.price
+                        ord1.pizItems.add(po1)
+                        ord1.save()
+                    elif row['item'] == 'Sub':
                         s1 = Sub.objects.get(id=row['ident'])
-                        so1 = SubOrder(order_id=ord1,
-                                   typ=s1, price=float(row['price']), size=row['size'])
+                        so1 = SubOrder(order_id=ord1,typ=s1, price=float(row['price']), size=row['size'])
                         so1.save()
                         if row['toppings'] != []:
-                            for row in row['toppings']:
-                                row = Extras.objects.get(
-                                typ=row.replace('&amp;', '&'))
-                            so1.extras.add(row)
-                            so1.save()
+                            for extra in row['toppings']:
+                                top = Extras.objects.get(typ=extra.replace('&amp;', '&'))
+                            so1.extras.add(top)
+
                         ord1.cost += so1.price
                         ord1.subItems.add(so1)
                         ord1.save()
@@ -305,26 +292,22 @@ def place(request):
                         po1 = PizOrder(order_id=ord1, typ=p1, price=float(row['price']), size=row['size'])
                         po1.save()
                         if row['toppings'] != []:
-                            for row in row['toppings']:
-                                top = Toppings.objects.get(
-                                typ=row.replace('&amp;', '&'))
+                            for topping in row['toppings']:
+                                   top = Toppings.objects.get(typ=topping.replace('&amp;', '&'))
                             po1.toppings.add(top)
-                            po1.save()
 
-                            ord1.cost += po1.price
-                            ord1.pizItems.add(po1)
-                            ord1.save()
-                    elif row['item'] == 'sub':
+                        ord1.cost += po1.price
+                        ord1.pizItems.add(po1)
+                        ord1.save()
+                    elif row['item'] == 'Sub':
                         s1 = Sub.objects.get(id=row['ident'])
-                        so1 = SubOrder(order_id=ord1,
-                                   typ=s1, price=float(row['price']), size=row['size'])
+                        so1 = SubOrder(order_id=ord1,typ=s1, price=float(row['price']), size=row['size'])
                         so1.save()
                         if row['toppings'] != []:
-                            for row in row['toppings']:
-                                row = Extras.objects.get(
-                                typ=row.replace('&amp;', '&'))
-                            so1.extras.add(row)
-                            so1.save()
+                            for extra in row['toppings']:
+                                top = Extras.objects.get(typ=extra.replace('&amp;', '&'))
+                            so1.extras.add(top)
+                        
                         ord1.cost += so1.price
                         ord1.subItems.add(so1)
                         ord1.save()
@@ -365,6 +348,7 @@ def place(request):
                 return HttpResponseRedirect(reverse("orders:basket"))    
     else:
             return HttpResponseRedirect(reverse("orders:login"))
+
     
 def basket(request):
     user = request.user

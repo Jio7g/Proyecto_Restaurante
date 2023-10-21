@@ -23,7 +23,7 @@ Mi Cuenta
         <!-- Previous Orders -->
         <h1>Mis Ordenes</h1>
         {% if active %}
-        <h5>Actualmente activa:</h5>
+        <h5 style="color: #ffffff;">Actualmente activa:</h5>
         {% endif %}
         {% for row in active %}
         <div class="card mb-2">
@@ -73,7 +73,7 @@ Mi Cuenta
 
 
         {% if delivery %}
-        <h5>Lista para entregar:</h5>
+        <h5 style="color: #ffffff;">Lista para entregar:</h5>
         {% endif %}
         {% for row in delivery %}
         <div class="card mb-2">
@@ -122,7 +122,7 @@ Mi Cuenta
         {% endfor %}
 
         {% if expired %}
-        <h5>Expired:</h5>
+        <h5 style="color: #ffffff;">Expired:</h5>
         {% endif %}
         {% for row in expired %}
         <div class="card mb-2">

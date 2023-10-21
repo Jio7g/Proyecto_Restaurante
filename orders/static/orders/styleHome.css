@@ -39,19 +39,29 @@ p {
     font-size: 1.6rem;
 }
 
+label {
+    color: #ffffff;
+}
+
+
+
+
 .historia {
     text-align: justify;
     padding-left: 20px;
+    color: white;
 }
 
 .descubre-menu {
     text-align: justify;
     padding-right: 25px;
+    color: white;
 }
 
 .degusta-menu {
     text-align: justify;
     padding-left: 20px; /* Ajusta la cantidad de espacio hacia la derecha según tus necesidades */
+    color: white;
 }
 
 
@@ -175,6 +185,7 @@ header {
     display: flex;
     align-items: center;
     text-align: center;
+    filter: brightness(0.7); /* Ajusta el valor según lo oscuro que desees */
 }
 
 .h2-sub {
@@ -506,6 +517,7 @@ footer {
 .contact-item {
     font-size: 18px;
     margin: 10px 0;
+    color: white;
 }
 
 .contact-link {
@@ -523,6 +535,7 @@ footer {
     background-color: #f4f4f4; /* Color de fondo personalizado */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #58332b;
 }
 
 .footer-contact {

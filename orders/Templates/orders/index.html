@@ -4,19 +4,6 @@
 
 
 {% block main %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa E'noya</title>
-</head>
-
-
-<body>
-
-
 
     <section class="hero" id="hero">
         <div class="container">
@@ -26,7 +13,7 @@
             <h1 class="head">Restaurante Casa E'noya</h1>
             <div class="he-des">
                 <h5>COCINA HONESTA</h5>
-                <a href="#historia" class="btn-home cta-btn">Explora</a>
+                <a href="{% url 'orders:directions' %}" class="btn-home cta-btn">Explora</a>
             </div>
         </div>
     </section>
@@ -43,7 +30,7 @@
                         <h2 class="h2-sub">
                             <span class="fil">D</span>escubre
                         </h2>
-                        <h1 class="head hea-dark">La Historia</h1>
+                        <h1 class="head hea-dark" style="color: #ffffff;">La Historia</h1>
                         <div class="circle">
                             <i class="fas fa-circle"></i>
                         </div>
@@ -85,7 +72,7 @@
                         <h2 class="h2-sub">
                             <span class="fil">D</span>escubre
                         </h2>
-                        <h1 class="head hea-dark">Menu</h1>
+                        <h1 class="head hea-dark" style="color: #ffffff;">Menu</h1>
                         <div class="circle">
                             <i class="fas fa-circle"></i>
                         </div>
@@ -134,7 +121,7 @@
                         <h2 class="h2-sub">
                             <span class="fil">D</span>egusta
                         </h2>
-                        <h1 class="head hea-dark">Delicioso menu</h1>
+                        <h1 class="head hea-dark" style="color: #ffffff;">Delicioso menu</h1>
                         <div class="circle">
                             <i class="fas fa-circle"></i>
                         </div>
@@ -157,48 +144,35 @@
         <div class="container">
             <div class="footer-content">
 
-                <div class="footer-content-about">
+                <div class="footer-content-about" id="nosotros">
                     <h4>Nosotros</h4>
                     <div class="circle">
                         <i class="fas fa-circle"></i>
                     </div>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                        Praesentium odio labore dolorum veritatis, culpa cumque eum 
-                        reprehenderit iure, commodi, repellat eaque possimus obcaecati 
-                        assumenda exercitationem? 
-                        Aperiam provident accusantium laboriosam. Necessitatibus!</p>
+                    <p> ¡Gracias por visitarnos!
+
+                        Somos un grupo de estudiantes de la Universidad Mariano Gálvez de Chiquimula apasionados por la gastronomía y la tecnología. Hemos trabajado arduamente en este proyecto web para ofrecerte la mejor experiencia en línea de nuestro restaurante.
+                        
+                        ¡Esperamos verte pronto en nuestro restaurante y que disfrutes de nuestros deliciosos platillos!
+                        
+                        </p>
                 </div>
                 <div class="footer-div">
                     <div class="social-media">
                         <h4>Siguenos</h4>
                         <ul class="social-icons">
                             <li>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/casaenoya"><i class="fab fa-facebook-square"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-pinterest"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                                <a href="https://github.com/Jio7g"><i class="fab fa-github"></i></a>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h4>Noticias</h4>
-                        <form action="" class="news-form">
-                            <input type="text" class="news-input"
-                            placeholder="Escribe tu email"
-                            >
-                            <button class="news-btn" type="submit">
-                                <i class="fas fa-envelope"></i>
-                            </button>
-                        </form>
+                        <h4>Redes del Restaurante</h4>
+                        <ul class="social-icons">
+                        <li>
+                            <a href="https://www.facebook.com/casaenoya"><i class="fab fa-facebook-square"></i></a>
+                        </li>
+                    </ul>
                     </div>
                 </div>
 
@@ -223,6 +197,6 @@
     </script>
 
     
-</body>
-</html>
+
+
 {% endblock %}

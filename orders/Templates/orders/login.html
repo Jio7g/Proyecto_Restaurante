@@ -16,6 +16,7 @@ Iniciar Sesión
 {% endif %}
 
 <div class="login-form">
+    <h1>Iniciar Sesión</h1>
     <form action="{% url 'orders:login' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">

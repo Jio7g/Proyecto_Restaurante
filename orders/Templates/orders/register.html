@@ -12,6 +12,7 @@ Registro
 {% block main %}
 
 <div class="register-form">
+    <h1>Registrarse</h1>
     <form action="{% url 'orders:register' %}" method="POST">
         {% csrf_token %}
         <div class="form-row">
