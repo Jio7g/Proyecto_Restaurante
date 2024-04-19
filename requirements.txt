@@ -20,7 +20,7 @@ pylint==2.5.2
 pytz==2020.1
 requests==2.24.0
 six==1.15.0
-sqlparse==0.3.1
+sqlparse==0.5.0
 stripe==2.48.0
 swapper==1.1.2.post1
 toml==0.10.1
